@@ -12,12 +12,14 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Header from './Utils/Header/Header';
 import Footer from './Utils/Footer/Footer';
+import Home from './Components/Home/Home';
 
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Header/>
+      <Home/>
       <Footer/>
     </ChakraProvider>
   );

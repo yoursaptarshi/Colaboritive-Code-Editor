@@ -5,7 +5,7 @@ import {Button, HStack, Heading, VStack} from '@chakra-ui/react'
 const Header = () => {
   return (
     <HStack className='header-parent'  >
-        <ColorModeSwitcher />
+        <ColorModeSwitcher/>
         <VStack>
         <Heading as='h2' size='xl'color={'white'}>CodeShare</Heading>
         <Heading as='h6' size='xs' color={'white'}>Code and Share in Real-Time</Heading>
