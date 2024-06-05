@@ -12,15 +12,28 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Header from './Utils/Header/Header';
 import Footer from './Utils/Footer/Footer';
+import NoPage from './Utils/NotFound/Nopage'
 import Home from './Components/Home/Home';
-
+import Login from './Components/Login/Login'
+import Register from './Components/Register/Register'
+import Editor from './Components/Editor/Editor'
+import {BrowserRouter as Router,Routes,Route} from'react-router-dom'
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
+      <Router>
       <Header/>
-      <Home/>
-      <Footer/>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='*' element={<NoPage/>}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/register' element={<Register/>}/>
+          <Route path='/code' element={<Editor/>}/>
+        </Routes>
+        <Footer/>
+      </Router>
+      
     </ChakraProvider>
   );
 }
