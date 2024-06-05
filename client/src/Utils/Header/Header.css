@@ -1,0 +1,7 @@
+.header-parent
+{
+    width:100vw;
+    background-image: linear-gradient(93deg, #53b2fe, #065af3);
+    display: flex;
+    justify-content: space-between;
+}
