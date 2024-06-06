@@ -14,18 +14,33 @@ dotenv.config({path:'./config/config.env'})
 const server = http.createServer(app);
 const io = new Server(server,{
     cors:{
-        origin:"http://127.0.0.1:3000",
+        origin:"http://localhost:3000",
         methods:["GET","POST"],
         credentials:true
     }
 })
+
 io.on('connection',(socket)=>{
   console.log('Hi from server')
     socket.emit("New-User-Welcome",`Welcome to CodeShare`)
+  socket.on('Join-Room',({roomName})=>{
+    socket.join(roomName)
+  })
 
-    
-    
-})
+  socket.on('personal-code-to-server',({code,roomName})=>{
+    if(code !='' && roomName!='')
+      {
+        console.log('your code is:',code)
+    io.to(roomName).emit("all-codes-from-server",code)
+      }
+  })
+  
+  socket.on('send-message-to-server',({message,roomName})=>{
+    io.to(roomName).emit("send-message-to-client",message)
+    console.log(message)
+  })
+
+  })
 
 // Socket.IO middleware for authentication
 // io.use(async (socket, next) => {
@@ -56,10 +71,13 @@ io.on('connection',(socket)=>{
 
 
 
+
 //middlewares
-app.use(cors({origin:"*",
+app.use(cors({origin:"http://127.0.0.1:3000",
     
     credentials:true}))
+
+    
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}))
@@ -68,4 +86,7 @@ app.use(express.urlencoded({extended:false}))
 app.use("/api/v1",userRoute);
 app.use("/api/v1",codeBaseRoute);
 
-module.exports = app;
+
+
+
+module.exports = server;

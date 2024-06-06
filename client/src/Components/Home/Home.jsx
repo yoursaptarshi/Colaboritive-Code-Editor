@@ -1,12 +1,13 @@
 import React from 'react'
-import { VStack, HStack, Box, Button, Heading, Text, Image } from '@chakra-ui/react'
+import { VStack, HStack, Box, Button, Heading, Text, Image, Link } from '@chakra-ui/react'
 import Typewriter from 'typewriter-effect';
 import LaptopImage from '../../assets/laptop.png'
 import TeamCodingImage from '../../assets/code-with-team.jpeg'
 import InterviewDeveloperImage from '../../assets/interview-developers.jpeg'
 import TeachingPeopleImage from '../../assets/teach-people-coding.jpg'
+import cryptoRandomString from 'crypto-random-string';
 const Home = () => {
-
+const roomName = cryptoRandomString({ length:15, type: 'alphanumeric' });
     return (
         <VStack minHeight='80vh'  >
             <HStack style={{ display: 'flex', justifyContent: 'flex-start', width: '90vw', }}>
@@ -25,7 +26,7 @@ const Home = () => {
                 <VStack>
                     <Heading as='h2' size='xl' >Colaborate and Code in Real-Time</Heading>
                     <Heading as='h6' size='xs' >An Online Code Editor With Colaborate and Code in Real-Time</Heading>
-                    <Button backgroundImage={'linear-gradient(93deg, #53b2fe, #065af3)'} color='White' >Code Now</Button>
+                    <Button backgroundImage={'linear-gradient(93deg, #53b2fe, #065af3)'} color='White' ><Link href={`/code/${roomName}`}>Code Now</Link></Button>
                 </VStack>
             </HStack>
             <Box margin={'10vh 0'}>
