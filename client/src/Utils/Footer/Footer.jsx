@@ -1,11 +1,11 @@
 import React from 'react'
-import {HStack,VStack,Button,Heading,Text} from '@chakra-ui/react'
+import {HStack,VStack,Heading,Text} from '@chakra-ui/react'
 import { FaGithub,FaLinkedin } from "react-icons/fa"
 import { MdEmail } from "react-icons/md"
 
 const Footer = () => {
   return (
-    <HStack style={{background: '#000',padding: '50px 0 60px', display:'flex',justifyContent:'space-between', padding:'3vw 5vw'}}>
+    <HStack style={{background: '#000', display:'flex',justifyContent:'space-between', padding:'3vw 5vw',width:'100%'}}>
         <VStack>
         <VStack>
         <Heading as='h2' size='xl'color={'white'}>CodeShare</Heading>

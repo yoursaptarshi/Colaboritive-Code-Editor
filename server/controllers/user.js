@@ -17,7 +17,7 @@ exports.register = async (req,res)=>{
             {
                  user = await User.create({Name,UserName,Password});
                  const token = await user.generateToken();
-                 res.status(200).cookie("token",token).json({
+                 res.status(200).cookie("token",token,{httpOnly:true}).json({
                     success:true,
                     message:"SignUp Successful!",
                     user:user
@@ -37,6 +37,7 @@ exports.register = async (req,res)=>{
 exports.login = async(req,res)=>{
     try {
         const{UserName,Password} = req.body;
+        
         let user = await User.findOne({UserName});
         if(!user)
             {
@@ -46,12 +47,13 @@ exports.login = async(req,res)=>{
                 })
             }
         else{
-            const token = await user.generateToken();
+            
             if(Password == user.Password)
                 {
-                  return  res.status(200).cookie("token",token).json({
+                    const token = await user.generateToken();
+                  return  res.status(200).cookie("token",token,{httpOnly:true}).json({
                         success:true,
-                        message:"LogIn Success!",
+                        message:"LoggedIn Successfully!",
                         user:user
                     })
                 }
