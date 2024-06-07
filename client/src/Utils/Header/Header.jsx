@@ -1,11 +1,15 @@
 import React from 'react'
 import './Header.css'
 import { ColorModeSwitcher } from '../../ColorModeSwitcher';
-import {Button, HStack, Heading, Link, VStack} from '@chakra-ui/react'
+import {Button, HStack, Heading, Image, Link, VStack} from '@chakra-ui/react'
+import logo from '../../assets/logo-no-background.png'
 const Header = () => {
   return (
     <HStack className='header-parent' width='100vw' >
+        <HStack>
         <ColorModeSwitcher/>
+        <Image src={logo} alt={'site logo'} width={'6.5vw'} padding={'0.5vw'}/>
+        </HStack>
         <VStack >
         <Heading as='h2' size='xl'color={'white'}><Link href='/'>CodeShare</Link></Heading>
         <Heading as='h6' size='xs' color={'white'}><Link href='/'>Code and Share in Real-Time</Link></Heading>

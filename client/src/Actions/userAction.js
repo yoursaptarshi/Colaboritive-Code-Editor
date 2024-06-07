@@ -1,10 +1,16 @@
 import axios from 'axios'
-const backendURL = 'http://127.0.0.1:5000'
+const backendURL = 'http://localhost:5000'
 export const userLogin = ({UserName,Password})=>async(dispatch)=>{
     try {
         dispatch({type:'Login_Request'});
 
-        const {data} = await axios.post(`${backendURL}/api/v1/login`,{UserName,Password})
+        const { data } = await axios.post(
+            `${backendURL}/api/v1/login`,
+            { UserName, Password },
+            {
+              withCredentials: true, 
+            }
+          );
         
         dispatch({
             type:'Login_Success',
@@ -23,7 +29,10 @@ export const userRegister = ({Name,UserName,Password}) => async(dispatch)=>{
     try {
         dispatch({type:'Register_Request'})
 
-        const {data} = await axios.post(`${backendURL}/api/v1/register`,{Name,UserName,Password})
+        const {data} = await axios.post(`${backendURL}/api/v1/register`,{Name,UserName,Password},
+            {
+              withCredentials: true, 
+            })
 
         dispatch({
             type:'Register_Success',

@@ -17,7 +17,8 @@ exports.register = async (req,res)=>{
             {
                  user = await User.create({Name,UserName,Password});
                  const token = await user.generateToken();
-                 res.status(200).cookie("token",token,{httpOnly:true}).json({
+                 
+                 res.status(200).cookie("token",token,{path: '/',httpOnly:true,sameSite: 'None',secure: true,expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)}).json({
                     success:true,
                     message:"SignUp Successful!",
                     user:user
@@ -51,7 +52,7 @@ exports.login = async(req,res)=>{
             if(Password == user.Password)
                 {
                     const token = await user.generateToken();
-                  return  res.status(200).cookie("token",token,{httpOnly:true}).json({
+                  return  res.status(200).cookie("token",token,{path: '/',httpOnly:true,secure: true,sameSite: 'None',expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)}).json({
                         success:true,
                         message:"LoggedIn Successfully!",
                         user:user

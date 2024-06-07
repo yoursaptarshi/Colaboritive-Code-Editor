@@ -30,7 +30,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='*' element={<NoPage/>}/>
-          <Route path='/login' element={isAuthenticated ? <Editor/> : <Login/>}/>
+          <Route path='/login' element={ <Login/>}/>
           <Route path='/register' element={isAuthenticated ? <Editor/> : <Register/>}/>
           <Route path='/code/:roomName' element={<Editor/>}/>
         </Routes>

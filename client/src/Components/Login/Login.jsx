@@ -25,13 +25,13 @@ const Login = () => {
       <Box width={'50vw'} marginTop={'10vh'}>
       <VStack>
       <Heading as='h6' size='xs' >UserName</Heading>
-      <Input variant='filled' placeholder='Enter your username' type='text' onChange={(e)=>setUserName(e.target.value)} />
+      <Input id='login-username' variant='filled' placeholder='Enter your username' type='text' onChange={(e)=>setUserName(e.target.value)} />
       </VStack>
 
       <VStack marginTop={'5vh'}>
       <Heading as='h6' size='xs' >Password</Heading>
       <InputGroup>
-      <Input variant='filled' placeholder='Enter your Password' type={show ? 'text' : 'password'} onChange={(e)=>setPassword(e.target.value)} />
+      <Input id='login-password' variant='filled' placeholder='Enter your Password' type={show ? 'text' : 'password'} onChange={(e)=>setPassword(e.target.value)} />
       <Button h='1.75rem' size='sm' variant='outline' onClick={handleClick}>
           {show ? 'Hide' : 'Show'}
         </Button>

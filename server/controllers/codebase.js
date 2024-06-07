@@ -3,7 +3,9 @@ const User = require('../models/User')
 exports.saveCode = async(req,res)=>{
     try {
         const {Title,Language,Code} = req.body;
+        console.log(1)
         const user = await User.findById(req.user._id);
+        console.log(2)
         if(!user)
             {
                 return res.status(400).json({
