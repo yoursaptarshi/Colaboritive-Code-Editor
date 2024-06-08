@@ -184,10 +184,11 @@ const {error,saveMessage,codeDetails} = useSelector((state)=>state.code)
 
         </HStack>
       </VStack>
-      <VStack minWidth={'70vw'} alignItems={'stretch'} >
+      <VStack  alignItems={'stretch'} >
         <Box border={'solid 0.05px'}>
           <CodeEditor
             height="80vh"
+            width={'70vw'}
             defaultLanguage="javascript"
 
             language={language}
