@@ -42,6 +42,7 @@ function App() {
           <Route path='/login' element={ <Login/>}/>
           <Route path='/register' element={isAuthenticated ? <Editor/> : <Register/>}/>
           <Route path='/code/:roomName' element={<Editor/>}/>
+          <Route path='/code/:roomName/:codeId/:versionId' element={<Editor/>}/>
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/user-codes/:codeId' element={<Usercode/>}/>
         </Routes>

@@ -27,7 +27,7 @@ export const codeReducer = createReducer(state,(builder)=>{
     .addCase('Get_Code_Success',(state,action)=>{
         state.loading=false;
         state.error=false;
-        state.codeDetails=action.payload.code
+        state.codeDetails=action.payload
     })
     .addCase('Get_Code_Failure',(state)=>{
         state.loading=false;

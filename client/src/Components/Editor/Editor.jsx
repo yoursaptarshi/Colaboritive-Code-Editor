@@ -7,10 +7,10 @@ import CodeEditor from '@monaco-editor/react';
 import { io } from "socket.io-client"
 import { useParams } from 'react-router-dom';
 import {useDispatch,useSelector} from "react-redux"
-import {codeSave,clearErrors} from '../../Actions/codeActions'
+import {codeSave,clearErrors, getCode} from '../../Actions/codeActions'
 const Editor = () => {
   const dispatch = useDispatch();
-  const { roomName } = useParams()
+  const { roomName,codeId,versionId } = useParams()
   const { colorMode } = useColorMode();
   const socket = useMemo(
     () =>
@@ -21,16 +21,19 @@ const Editor = () => {
       ),
     []
   );
-const {error,saveMessage} = useSelector((state)=>state.code)
+
+const {error,saveMessage,codeDetails} = useSelector((state)=>state.code)
   const [language, setLanguage] = useState("javascript");
 
   const [code, setCode] = useState('');
-  const [codes, setCodes] = useState('//Please type your codes here');
+  
+  const [codes, setCodes] = useState('//Enjoy codeshare by saptarshi');
 
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState(['']);
 
   const [title, setTitle] = useState();
+
   const languages = [
     { value: 'javascript', label: 'JavaScript' },
     { value: 'typescript', label: 'TypeScript' },
@@ -49,6 +52,14 @@ const {error,saveMessage} = useSelector((state)=>state.code)
 
   //socketIO
   useEffect(() => {
+    //get saved code
+    if(codeId && versionId)
+      {
+        console.log('hi')
+        dispatch(getCode(codeId,versionId));
+        
+
+      }
     socket.on("connect", () => {
       socket.emit("Join-Room", { roomName })
 
@@ -70,6 +81,15 @@ const {error,saveMessage} = useSelector((state)=>state.code)
       })
     }
   }, [])
+
+  useEffect(() => {
+    if(codeDetails && codeDetails.Content)
+      {
+        setCodes(codeDetails.Content)
+        
+      }
+  }, [codeDetails,code])
+  
   useEffect(() => {
     socket.emit('personal-code-to-server', { code, roomName })
 

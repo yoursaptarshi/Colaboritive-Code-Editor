@@ -45,8 +45,8 @@ const Profile = () => {
      { user && user.CodeBase ?
       (
         user.CodeBase.map((element,index)=>{
-          return  <Tr key ={index}>
-             <Td onClick={() => codeSeletHandler(element.codeBaseId)}>{element.title}</Td>
+          return  <Tr key ={index} onClick={() => codeSeletHandler(element.codeBaseId)} style={{cursor:'pointer'}}>
+             <Td >{element.title}</Td>
              <Td>{element.language}</Td>
              <Td>{element.modified.split('T')[0]}</Td>
            </Tr>

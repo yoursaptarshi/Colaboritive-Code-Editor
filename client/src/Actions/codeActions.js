@@ -24,23 +24,40 @@ export const codeSave = ({Title,Language,Code})=>async(dispatch)=>{
     }
 }
 
-export const getCode =(codeId)=>async(dispatch)=>{
+export const getCode =(codeId,versionId)=>async(dispatch)=>{
     try {
         dispatch({type:'Get_Code_Request'})
         
         
-        console.log(codeId)
-        const { data } = await axios.get(
-            `${backendURL}/api/v1/find-code?codeId=${codeId}`,
+        console.log(codeId,versionId)
+        if(versionId)
             {
-                withCredentials: true, 
+                const { data } = await axios.get(
+                    `${backendURL}/api/v1/find-code?codeId=${codeId}&versionId=${versionId}`,
+                    {
+                        withCredentials: true, 
+                    }
+                )
+                
+                dispatch({
+                    type:'Get_Code_Success',
+                    payload:data.codeVersion
+                })
             }
-        );
+            else{
+                const { data } = await axios.get(
+                    `${backendURL}/api/v1/find-code?codeId=${codeId}`,
+                    {
+                        withCredentials: true, 
+                    }
+                );
+                dispatch({
+                    type:'Get_Code_Success',
+                    payload:data.code
+                })
+            }
         
-        dispatch({
-            type:'Get_Code_Success',
-            payload:data
-        })
+        
     } catch (error) {
         dispatch({
             type:'Get_Code_Failure',

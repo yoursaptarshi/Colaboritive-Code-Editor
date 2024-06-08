@@ -5,7 +5,7 @@ exports.saveCode = async(req,res)=>{
         const {Title,Language,Code} = req.body;
         
         const user = await User.findById(req.user._id);
-        console.log(1)
+        
         if(!user)
             {
                 return res.status(400).json({
