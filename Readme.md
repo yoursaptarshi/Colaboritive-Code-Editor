@@ -8,6 +8,8 @@ CodeShare is a collaborative code editor built using the MERN (MongoDB, Express,
 - Syntax highlighting
 - User authentication
 - Multiple programming languages support
+-Version Control System (Codes and their versions are stored)
+- RealTime Chat support
 
 ## Getting Started
 
@@ -29,5 +31,16 @@ Make sure you have the following installed on your local machine:
 
 2. **Install Dependencies**
     ```sh
+    //client side
     cd client
+    npm install
+    //server side
+    cd server
+    npm install
+3. **Start**
+    ```sh
+    //client side
+    cd client
+    npm start
+    cd server
     npm install
