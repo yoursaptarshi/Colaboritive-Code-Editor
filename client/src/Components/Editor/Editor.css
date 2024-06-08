@@ -1,0 +1,17 @@
+.personalMessage {
+    background-color: #59ba5e;
+    align-self: flex-end; /* Align to the right */
+    text-align: right; /* Text alignment to the right */
+}
+
+.otherMessage {
+    background-color: #f0f0f0; /* You can set a different background color for other messages */
+    align-self: flex-start; /* Align to the left */
+    text-align: left; /* Text alignment to the left */
+}
+
+/* Container for the messages */
+.messageContainer {
+    display: flex;
+    flex-direction: column;
+}

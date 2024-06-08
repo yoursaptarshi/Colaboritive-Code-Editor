@@ -4,9 +4,12 @@ import { Box, Button, Heading, Input, InputGroup, VStack,Alert,
   AlertDescription, } from '@chakra-ui/react'
 import {userLogin,clearErrors} from '../../Actions/userAction'
 import {useDispatch,useSelector} from "react-redux";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import cryptoRandomString from 'crypto-random-string';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {error,message,isAuthenticated} = useSelector((state)=>state.user);
   const [userName,setUserName] = useState('');
@@ -19,6 +22,13 @@ const Login = () => {
     dispatch(userLogin({UserName:userName,Password:password}))
     dispatch(clearErrors())
   }
+  useEffect(()=>{
+    if(isAuthenticated)
+      {
+        const roomName = cryptoRandomString({ length:15, type: 'alphanumeric' });
+        navigate(`/code/${roomName}`)
+      }
+  },[])
   return (
     <VStack minHeight='80vh'  >
       <Heading as='h2' size='xl' marginTop={'5vh'}>Log in to access </Heading>

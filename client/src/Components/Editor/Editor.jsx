@@ -8,6 +8,7 @@ import { io } from "socket.io-client"
 import { useParams } from 'react-router-dom';
 import {useDispatch,useSelector} from "react-redux"
 import {codeSave,clearErrors, getCode} from '../../Actions/codeActions'
+import './Editor.css'
 const Editor = () => {
   const dispatch = useDispatch();
   const { roomName,codeId,versionId } = useParams()
@@ -27,11 +28,11 @@ const {error,saveMessage,codeDetails} = useSelector((state)=>state.code)
 
   const [code, setCode] = useState('');
   
-  const [codes, setCodes] = useState('//Enjoy codeshare by saptarshi');
+  const [codes, setCodes] = useState('//Enjoy codeshare by saptarshi\n//Please Sign in or Register to "Save COde"');
 
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState(['']);
-
+  const [messages, setMessages] = useState([]);
+  const [codeID,setCodeID]=useState()
   const [title, setTitle] = useState();
 
   const languages = [
@@ -57,6 +58,7 @@ const {error,saveMessage,codeDetails} = useSelector((state)=>state.code)
       {
         console.log('hi')
         dispatch(getCode(codeId,versionId));
+        setCodeID(codeId);
         
 
       }
@@ -103,12 +105,14 @@ const {error,saveMessage,codeDetails} = useSelector((state)=>state.code)
 
   function messageSubmitHandler(e) {
     e.preventDefault();
-    socket.emit('send-message-to-server', { message, roomName })
+    
+    socket.emit('send-message-to-server', { message, roomName,user:socket.id })
+    setMessage('');
   }
 
   function codeSaveHandler(e) {
     e.preventDefault();
-    dispatch(codeSave({Title:title,Language:language,Code:codes}))
+    dispatch(codeSave({Title:title,Language:language,Code:codes,codeId:codeID}))
     
   }
 
@@ -124,7 +128,7 @@ const {error,saveMessage,codeDetails} = useSelector((state)=>state.code)
         top="50%"
         left="50%"
         transform="translate(-50%, -50%)"
-        zIndex="overlay" // Chakra UI has predefined z-indices, 'overlay' is a good choice for modals/alerts
+        zIndex="overlay" 
         width="auto"
         maxWidth="90%"
       >
@@ -156,8 +160,9 @@ const {error,saveMessage,codeDetails} = useSelector((state)=>state.code)
               scrollbarWidth: 'none'  // Hide scrollbar for Firefox
             }} maxHeight={'70vh'} alignItems={'end'} color='black'>
               {messages.map((element, index) => {
-                return <div key={index} style={{ backgroundColor: '#59ba5e', padding: '1vw 2vw', borderRadius: '1vw' }}>
-                  {element}
+                
+                return <div key={index} className={(element.user === socket.id)? 'personalMessage':'otherMessage'}style={{ padding: '1vw 2vw', borderRadius: '1vw' }}>
+                  {element.message}
                 </div>
               })}
             </VStack>
@@ -172,6 +177,7 @@ const {error,saveMessage,codeDetails} = useSelector((state)=>state.code)
             color='White'
             border="1px solid "
             borderRadius={'30vw'}
+            value={message}
             onClick={messageSubmitHandler}
             isDisabled={!message}
           >Send</Button>

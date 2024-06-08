@@ -5,7 +5,7 @@ exports.saveCode = async(req,res)=>{
         const {Title,Language,Code} = req.body;
         
         const user = await User.findById(req.user._id);
-        
+        const {codeId} = req.body;
         if(!user)
             {
                 return res.status(400).json({
@@ -20,20 +20,34 @@ exports.saveCode = async(req,res)=>{
                     message:"Please enter Title to Proceed"
                 })
             }
-            const code = await CodeBase.create({
-                Title:Title,
-                Language:Language
-            })
-            code.Versions.push({Content:Code});
+            const code = await CodeBase.findById(codeId)
+            if(!code || !codeId)
+                {
+                    const code = await CodeBase.create({
+                        Title:Title,
+                        Language:Language
+                    })
+                    code.Versions.push({Content:Code});
             code.Collaborators.push(req.user._id)
             await code.save();
             user.CodeBase.push({codeBaseId:code._id,title:Title,language:Language})
             await user.save();
-
-            res.status(200).json({
+            return  res.status(200).json({
                 success:true,
                 message:"Code saved Successfully"
             })
+            }
+            else{
+                code.Versions.push({Content:Code});
+            code.Collaborators.push(req.user._id)
+            await code.save();
+            
+
+           return res.status(200).json({
+                success:true,
+                message:"Code saved Successfully"
+            })
+            }
 
     } catch (error) {
         res

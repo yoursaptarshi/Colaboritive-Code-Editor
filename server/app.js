@@ -38,8 +38,8 @@ io.on('connection',(socket)=>{
       }
   })
   
-  socket.on('send-message-to-server',({message,roomName})=>{
-    io.to(roomName).emit("send-message-to-client",message)
+  socket.on('send-message-to-server',({message,roomName,user})=>{
+    io.to(roomName).emit("send-message-to-client",{message,user})
     
   })
 
