@@ -3,7 +3,8 @@ import {createReducer} from "@reduxjs/toolkit"
 const state = {
     saveMessage:null,
     error:null,
-    loading:null
+    loading:null,
+    codeDetails:null
 }
 
 export const codeReducer = createReducer(state,(builder)=>{
@@ -19,6 +20,18 @@ export const codeReducer = createReducer(state,(builder)=>{
         state.loading=false;
         state.saveMessage=action.payload;
         state.error=true;
+    })
+    .addCase('Get_Code_Request',(state)=>{
+        state.loading=true;
+    })
+    .addCase('Get_Code_Success',(state,action)=>{
+        state.loading=false;
+        state.error=false;
+        state.codeDetails=action.payload.code
+    })
+    .addCase('Get_Code_Failure',(state)=>{
+        state.loading=false;
+        state.error=true
     })
     .addCase('CLEAR_ERRORS',(state)=>{
         state.error=null;

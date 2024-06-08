@@ -38,6 +38,20 @@ export const userReducer = createReducer(state,(builder)=>{
         state.error=action.payload;
         state.isAuthenticated=false
     })
+    .addCase('User_Fetch_Request',(state)=>{
+        state.loading=true
+    })
+    .addCase('User_Fetch_Success',(state,action)=>{
+        state.loading=false;
+        state.isAuthenticated=true;
+        state.error=false;
+        state.user=action.payload.user
+    })
+    .addCase('User_Fetch_Failure',(state,action)=>{
+        state.loading=false;
+        state.isAuthenticated=false;
+        state.error=action.payload
+    })
     .addCase('CLEAR_ERRORS',(state)=>{
         state.error=null
     })
